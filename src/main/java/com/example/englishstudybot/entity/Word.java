@@ -4,6 +4,8 @@ import javax.persistence.*;
 
 import lombok.*;
 
+import java.util.Objects;
+
 @Getter
 @Builder
 @AllArgsConstructor
@@ -19,4 +21,16 @@ public class Word {
     @Column(name = "word_ukrainian")
     private String ukrainianWord;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Word word = (Word) o;
+        return wordId == word.wordId && Objects.equals(englishWord, word.englishWord) && Objects.equals(ukrainianWord, word.ukrainianWord);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(wordId, englishWord, ukrainianWord);
+    }
 }
